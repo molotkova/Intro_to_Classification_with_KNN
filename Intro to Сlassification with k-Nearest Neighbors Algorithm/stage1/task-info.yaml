@@ -1,0 +1,6 @@
+type: edu
+files:
+- name: load_file.py
+  visible: true
+- name: tests.py
+  visible: false

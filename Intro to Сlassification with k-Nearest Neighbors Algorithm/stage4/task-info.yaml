@@ -1,0 +1,6 @@
+type: edu
+files:
+- name: dist.py
+  visible: true
+- name: tests.py
+  visible: false
