@@ -17,12 +17,14 @@ class PredictTest(StageTest):
             return CheckResult.wrong("No output was printed")
 
         if reply.count('[') < 1 or reply.count(']') < 1:
-            return CheckResult.wrong('Print the answers should contain lists')
+            return CheckResult.wrong('Answers printed should contain lists')
 
-        if len(reply.split('\n')) != 3:
-            return CheckResult.wrong('The number of answers supplied does not equal 3')
+        num_lines = len(reply.split('\n'))
+        if num_lines != 3:
+            return CheckResult.wrong(f'There should be 3 answers, each on a separate line;\n'
+                                     f'Found {num_lines}.')
 
-        reply= reply.split('\n')
+        reply = reply.split('\n')
         reply_modified = '['
         for elem in reply:
             index_from = elem.find('[')
@@ -49,11 +51,13 @@ class PredictTest(StageTest):
         for i in range(len(user_list)):
             if len(user_list[i]) != 3:
                 return CheckResult.wrong(
-                    f'List {i} has length {len(user_list[i])}, the length of the list should be 3.')
+                    f'List {i} has length {len(user_list[i])}, althoguh the length of the list should be 3.\n'
+                    f'Note that numeration starts from 0.')
             for j in range(len(user_list[i])):
                 if user_list[i][j] != correct_answer[i][j]:
-                        return CheckResult.wrong(f"Seems like answer is not correct\n"
-                                                 f"Check element {j} of your list {i}")
+                        return CheckResult.wrong(f"Seems like answer is not correct;\n"
+                                                 f"Check element {j} of your list {i}."
+                                                 f"Note that numeration starts from 0.")
 
         return CheckResult.correct()
 

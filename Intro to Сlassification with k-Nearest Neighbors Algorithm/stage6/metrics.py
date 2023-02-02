@@ -77,11 +77,11 @@ if __name__ == '__main__':
         runners[i][0] = min_max_scaling(runners[i][0], sum_kilometers)
         runners[i][1] = min_max_scaling(runners[i][1], age)
 
-    test_vector = [424, 40, 'nothing', 1.42]
+    test_vector = [424, 40, 1.42, 'nothing']
     test_vector[0] = min_max_scaling(test_vector[0], sum_kilometers)
     test_vector[1] = min_max_scaling(test_vector[1], age)
-    test_vector.extend(dictionary_vectors[test_vector[2]])
-    test_vector.pop(2)
+    test_vector.extend(dictionary_vectors[test_vector[3]])
+    test_vector.pop(3)
 
 
     def predict(nested_lst, k=1):
@@ -102,17 +102,17 @@ if __name__ == '__main__':
         return labels
 
 
-    test_vector_2 = [210, 39, 'cycling 3h', 3.19]
+    test_vector_2 = [210, 39, 3.19, 'cycling 3h']
     test_vector_2[0] = min_max_scaling(test_vector_2[0], sum_kilometers)
     test_vector_2[1] = min_max_scaling(test_vector_2[1], age)
-    test_vector_2.extend(dictionary_vectors[test_vector_2[2]])
-    test_vector_2.pop(2)
+    test_vector_2.extend(dictionary_vectors[test_vector_2[3]])
+    test_vector_2.pop(3)
 
-    test_vector_3 = [518, 33, 'nothing', 3.12]
+    test_vector_3 = [518, 33, 3.12, 'nothing']
     test_vector_3[0] = min_max_scaling(test_vector_3[0], sum_kilometers)
     test_vector_3[1] = min_max_scaling(test_vector_3[1], age)
-    test_vector_3.extend(dictionary_vectors[test_vector_3[2]])
-    test_vector_3.pop(2)
+    test_vector_3.extend(dictionary_vectors[test_vector_3[3]])
+    test_vector_3.pop(3)
 
     test_result_1 = predict([test_vector, test_vector_2, test_vector_3], k=1)
     test_result_3 = predict([test_vector, test_vector_2, test_vector_3], k=3)

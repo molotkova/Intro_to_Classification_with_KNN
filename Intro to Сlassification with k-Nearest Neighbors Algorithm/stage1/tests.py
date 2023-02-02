@@ -45,11 +45,13 @@ class LoadTest(StageTest):
         for i in range(len(user_list)):
             if len(user_list[i]) != 5:
                 return CheckResult.wrong(
-                    f'Nested list {i} should contain 5 values, found {len(user_list[i])}')
+                    f'Nested list {i} should contain 5 values, found {len(user_list[i])}.\n'
+                    f'Note that numeration starts from 0.')
             for j in range(len(user_list[i])):
                 if user_list[i][j] != correct_answer[i][j]:
-                    return CheckResult.wrong(f"Seems like answer is not correct\n"
-                                             f"Check element {j} of your {i} list")
+                    return CheckResult.wrong(f"Seems like answer is not correct;\n"
+                                             f"Check element {j} of your {i} list.\n"
+                                             f"Note that numeration starts from 0.")
 
         return CheckResult.correct()
 

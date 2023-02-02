@@ -49,16 +49,19 @@ class ScaleTest(StageTest):
         for i in range(len(user_list)):
             if len(user_list[i]) != 7:
                 return CheckResult.wrong(
-                    f'Nested list {i} should contain 7 values, found {len(user_list[i])}')
+                    f'Nested list {i} should contain 7 values, found {len(user_list[i])}.\n'
+                    f'Note that numeration starts from 0.')
             for j in range(len(user_list[i])):
                 if j == 0 or j == 1:
                     if user_list[i][j] < correct_answer[i][j] - 0.01 * correct_answer[i][j] or user_list[i][j] > correct_answer[i][j] + 0.01 * correct_answer[i][j]:
-                        return CheckResult.wrong(f"Seems like answer is not correct\n"
-                                                 f"Check element {j} of your {i} list")
-                if j != 0 and j!= 1:
+                        return CheckResult.wrong(f"Seems like answer is not correct;\n"
+                                                 f"Check element {j} of your {i} list.\n"
+                                                 f"Note that numeration starts from 0.")
+                if j != 0 and j != 1:
                     if user_list[i][j] != correct_answer[i][j]:
-                        return CheckResult.wrong(f"Seems like answer is not correct\n"
-                                                 f"Check element {j} of your {i} list")
+                        return CheckResult.wrong(f"Seems like answer is not correct;\n"
+                                                 f"Check element {j} of your {i} list.\n"
+                                                 f"Note that numeration starts from 0.")
 
         return CheckResult.correct()
 

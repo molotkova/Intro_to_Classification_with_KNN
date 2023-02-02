@@ -18,7 +18,8 @@ class MetricTest(StageTest):
             return CheckResult.wrong("No output was printed")
 
         if len(reply.split('\n')) != 10:
-            return CheckResult.wrong('The number of answers supplied does not equal 2 or one answer is partial')
+            return CheckResult.wrong('The number of lines is the answer does not equal 10.\n'
+                                     'Please follow the format specified in the Examples section.')
 
         reply = reply.split('\n')
         reply_modified = '['
@@ -34,7 +35,6 @@ class MetricTest(StageTest):
 
         reply_modified = reply_modified[:len(reply_modified) - 1]
         reply_modified += ']]'
-        print(reply_modified)
 
         try:
             user_list = ast.literal_eval(reply_modified)

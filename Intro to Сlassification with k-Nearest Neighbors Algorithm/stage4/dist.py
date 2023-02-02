@@ -52,10 +52,12 @@ if __name__ == '__main__':
         runners[i][0] = min_max_scaling(runners[i][0], sum_kilometers)
         runners[i][1] = min_max_scaling(runners[i][1], age)
 
-    test_vector = [424, 40, 'nothing', 1.42]
+    test_vector = [424, 40, 1.42, 'nothing']
     test_vector[0] = min_max_scaling(test_vector[0], sum_kilometers)
     test_vector[1] = min_max_scaling(test_vector[1], age)
-    test_vector.extend(dictionary_vectors[test_vector[2]])
-    test_vector.pop(2)
+    test_vector.extend(dictionary_vectors[test_vector[3]])
+    test_vector.pop(3)
 
     print(calc_dists(test_vector))
+
+    # print("""[0.2812106966355265, 1.4991706027951892, 0.3873684238031154, 0.6039499515901134, 0.7647937207067647, 1.579307855293723, 1.5958039687009598, 1.6457031105319977, 0.8894684753340013, 1.6471355362092108]""")

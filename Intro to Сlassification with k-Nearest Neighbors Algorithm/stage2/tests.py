@@ -25,7 +25,8 @@ class ModifyTest(StageTest):
             return CheckResult.wrong('Print the answer as two lists')
 
         if len(reply.split('\n')) != 2:
-            return CheckResult.wrong('The number of answers supplied does not equal 2')
+            return CheckResult.wrong('As a result, you should print two lists, each on a separate line.\n'
+                                     'Now the number of lines is not equal 2.')
 
         reply_y = reply.split('\n')[0]
         reply_x = reply.split('\n')[1]
@@ -58,16 +59,19 @@ class ModifyTest(StageTest):
 
         for i in range(len(answer_y)):
             if user_list_y[i] != answer_y[i]:
-                return CheckResult.wrong(f"Seems like first answer is not correct. Check element {i} of your first answer")
+                return CheckResult.wrong(f"Seems like first answer is not correct. Check element {i} of your first answer.\n"
+                f"Note that numeration starts from 0.")
 
         for i in range(len(user_list_x)):
             if len(user_list_x[i]) != 7:
                 return CheckResult.wrong(
-                    f'Nested list {i} of your second answer should contain 7 values, found {len(user_list_x[i])}')
+                    f'Nested list {i} of your second answer should contain 7 values, found {len(user_list_x[i])}.\n'
+                    f'Note that numeration starts from 0.')
             for j in range(len(user_list_x[i])):
                 if user_list_x[i][j] != answer_x[i][j]:
-                    return CheckResult.wrong(f"Seems like second answer is not correct\n"
-                                             f"Check element {j} of your {i} nested list")
+                    return CheckResult.wrong(f"Seems like second answer is not correct;\n"
+                                             f"Check element {j} of your {i} nested list.\n"
+                                             f"Note that numeration starts from 0.")
 
         return CheckResult.correct()
 

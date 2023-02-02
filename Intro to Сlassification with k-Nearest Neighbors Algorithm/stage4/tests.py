@@ -41,8 +41,9 @@ class DistTest(StageTest):
 
         for i in range(len(user_list)):
             if user_list[i] < correct_answer[i] - 0.01 * correct_answer[i] or user_list[i] > correct_answer[i] + 0.01 * correct_answer[i]:
-                        return CheckResult.wrong(f"Seems like answer is not correct\n"
-                                                 f"Check element {i} of your list")
+                        return CheckResult.wrong(f"Seems like answer is not correct;\n"
+                                                 f"Check element {i} of your list.\n"
+                                                 f"Note that numeration starts from 0.")
         return CheckResult.correct()
 
 
