@@ -26,7 +26,7 @@ class ModifyTest(StageTest):
 
         if len(reply.split('\n')) != 2:
             return CheckResult.wrong('As a result, you should print two lists, each on a separate line.\n'
-                                     'Now the number of lines is not equal 2.')
+                                     'Now the number of lines does not equal 2.')
 
         reply_y = reply.split('\n')[0]
         reply_x = reply.split('\n')[1]
@@ -38,7 +38,6 @@ class ModifyTest(StageTest):
         user_answer_x = reply_x[index_from_x: index_to_x + 1]
         try:
             user_list_y = ast.literal_eval(user_answer_y)
-            user_list_x = ast.literal_eval(user_answer_x)
         except Exception as e:
             return CheckResult.wrong(f"Seems that output is in wrong format.\n"
                                      f"Make sure you use only the following Python structures in the output: string, int, float, list, dictionary")
@@ -46,21 +45,27 @@ class ModifyTest(StageTest):
         if not isinstance(user_list_y, list):
             return CheckResult.wrong(f'Print the first answer as a list')
 
-        if not isinstance(user_list_x, list):
-            return CheckResult.wrong(f'Print the second answer as a list')
-
         if len(user_list_y) != len(answer_y):
             return CheckResult.wrong(
                 f'First answer should be a list of {len(answer_y)} values, found {len(user_list_y)} values')
 
+        for i in range(len(answer_y)):
+            if user_list_y[i] != answer_y[i]:
+                return CheckResult.wrong(f"Seems like the first answer is not correct. Check element {i} of your first list.\n"
+                f"Note that numeration starts from 0.")
+
+        try:
+            user_list_x = ast.literal_eval(user_answer_x)
+        except Exception as e:
+            return CheckResult.wrong(f"Seems that output is in wrong format.\n"
+                                     f"Make sure you use only the following Python structures in the output: string, int, float, list, dictionary")
+
+        if not isinstance(user_list_x, list):
+            return CheckResult.wrong(f'Print the second answer as a list')
+
         if len(user_list_x) != len(answer_x):
             return CheckResult.wrong(
                 f'Second answer should be a nested list of {len(answer_x)} lists, found {len(user_list_x)} lists')
-
-        for i in range(len(answer_y)):
-            if user_list_y[i] != answer_y[i]:
-                return CheckResult.wrong(f"Seems like first answer is not correct. Check element {i} of your first answer.\n"
-                f"Note that numeration starts from 0.")
 
         for i in range(len(user_list_x)):
             if len(user_list_x[i]) != 7:

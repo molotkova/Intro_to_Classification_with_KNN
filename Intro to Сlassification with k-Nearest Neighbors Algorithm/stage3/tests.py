@@ -57,7 +57,7 @@ class ScaleTest(StageTest):
                         return CheckResult.wrong(f"Seems like answer is not correct;\n"
                                                  f"Check element {j} of your {i} list.\n"
                                                  f"Note that numeration starts from 0.")
-                if j != 0 and j != 1:
+                if j != 0 and j!= 1:
                     if user_list[i][j] != correct_answer[i][j]:
                         return CheckResult.wrong(f"Seems like answer is not correct;\n"
                                                  f"Check element {j} of your {i} list.\n"

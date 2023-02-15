@@ -20,7 +20,7 @@ class LoadTest(StageTest):
         if len(reply) == 0:
             return CheckResult.wrong("No output was printed")
 
-        if reply.count('[') < 2 or reply.count(']') < 2:
+        if reply.count('[') < 1 or reply.count(']') < 1:
             return CheckResult.wrong('Print the answer as a nested list')
 
         if len(reply.split('\n')) != 1:
@@ -36,7 +36,7 @@ class LoadTest(StageTest):
                                      f"Make sure you use only the following Python structures in the output: string, int, float, list, dictionary")
 
         if not isinstance(user_list, list):
-            return CheckResult.wrong(f'Print answer as a list')
+            return CheckResult.wrong(f'Print answer as a nested list')
 
         if len(user_list) != len(correct_answer):
             return CheckResult.wrong(
