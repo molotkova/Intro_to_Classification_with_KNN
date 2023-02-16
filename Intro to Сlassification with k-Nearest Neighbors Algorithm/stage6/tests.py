@@ -1,9 +1,11 @@
 import ast
 from hstest.stage_test import List
 from hstest import *
+import re
 
 correct_answer = [[1.0, 1.0, 1.0, 1.0], [0.6666666666666666, 1.0, 0.5, 0.6666666666666666]]
 metric_list = ['accuracy', 'precision', 'recall', 'F-score']
+regex4float = "[+-]?([0-9]*[.])?[0-9]+"
 
 class MetricTest(StageTest):
 
@@ -12,56 +14,46 @@ class MetricTest(StageTest):
 
     def check(self, reply: str, attach):
 
-        reply = reply.strip()
+        reply = reply.strip().replace(" ", "").lower()
 
         if len(reply) == 0:
             return CheckResult.wrong("No output was printed")
 
         if len(reply.split('\n')) != 10:
-            return CheckResult.wrong('The number of lines is the answer does not equal 10.\n'
+            return CheckResult.wrong('The number of lines is the output does not equal 10.\n'
                                      'Please follow the format specified in the Examples section.')
 
-        reply = reply.split('\n')
-        reply_modified = '['
-        for j in range(len(reply)):
-            if j == 0:
-                reply_modified += '['
-            elif j == 5:
-                reply_modified = reply_modified[:len(reply_modified) - 1]
-                reply_modified += '],['
-            else:
-                elem = reply[j].split(' ')[1]
-                reply_modified += elem + ','
+        answer_k1 = re.search(pattern=f"metricvalueswhenk=1:\naccuracy:{regex4float}\nprecision:{regex4float}\nrecall:{regex4float}\nf-score:{regex4float}", string=reply)
 
-        reply_modified = reply_modified[:len(reply_modified) - 1]
-        reply_modified += ']]'
+        if answer_k1 is None:
+            raise WrongAnswer(
+                "Didn't find all or a part of the answer for the k = 1 case.\n"
+                "Check whether the format is correct and whether all of the metrics are present")
+        list_k1 = answer_k1.group(0)
 
-        try:
-            user_list = ast.literal_eval(reply_modified)
+        user_list_k1 = [float(i.split('\n')[0].lstrip()) for i in list_k1.split(':')[2:]]
 
-
-        except Exception as e:
-            return CheckResult.wrong(f"Seems that output is in wrong format.\n"
-                                     f"Make sure you use only the following Python structures in the output: string, int, float, list, dictionary")
-
-        if not isinstance(user_list, list):
-            return CheckResult.wrong(f'Print answer as a list')
-
-        if len(user_list) != len(correct_answer):
-            return CheckResult.wrong(
-                f'Output should contain {len(correct_answer)} cases, found {len(user_list)}')
-
-        for i in range(len(user_list)):
-            if len(user_list[i]) != 4:
-                return CheckResult.wrong(
-                    f'Case number {i + 1} should have {len(correct_answer[i])} metric values, found {len(user_list[i])}'
-                    f'metric values')
-
-            for j in range(len(user_list[i])):
-                if user_list[i][j] < correct_answer[i][j] - 0.01 * correct_answer[i][j] or\
-                        user_list[i][j] > correct_answer[i][j] + 0.01 * correct_answer[i][j]:
+        for j in range(len(user_list_k1)):
+                if user_list_k1[j] < correct_answer[0][j] - 0.01 * correct_answer[0][j] or\
+                        user_list_k1[j] > correct_answer[0][j] + 0.01 * correct_answer[0][j]:
                         return CheckResult.wrong(f"Seems like answer is not correct\n"
-                                                 f"Check metric {metric_list[j]} of case {i + 1}")
+                                                 f"Check metric {metric_list[j]} of case k = 1.")
+
+        answer_k3 = re.search(pattern=f"metricvalueswhenk=3:\naccuracy:{regex4float}\nprecision:{regex4float}\nrecall:{regex4float}\nf-score:{regex4float}", string=reply)
+
+        if answer_k3 is None:
+            raise WrongAnswer(
+                "Didn't find all or a part of the answer for the k = 3 case.\n"
+                "Check whether the format is correct and whether all of the metrics are present")
+
+        list_k3 = answer_k3.group(0)
+        user_list_k3 = [float(i.split('\n')[0].lstrip()) for i in list_k3.split(':')[2:]]
+
+        for j in range(len(user_list_k3)):
+            if user_list_k3[j] < correct_answer[1][j] - 0.01 * correct_answer[1][j] or \
+                    user_list_k3[j] > correct_answer[1][j] + 0.01 * correct_answer[1][j]:
+                return CheckResult.wrong(f"Seems like answer is not correct\n"
+                                         f"Check metric {metric_list[j]} of case k = 3")
 
         return CheckResult.correct()
 
