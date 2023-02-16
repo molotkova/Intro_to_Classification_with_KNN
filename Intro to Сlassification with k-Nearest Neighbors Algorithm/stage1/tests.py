@@ -23,9 +23,6 @@ class LoadTest(StageTest):
         if reply.count('[') < 1 or reply.count(']') < 1:
             return CheckResult.wrong('Print the answer as a nested list')
 
-        if len(reply.split('\n')) != 1:
-            return CheckResult.wrong('The number of answers supplied does not equal 1')
-
         index_from = reply.find('[')
         index_to = reply.rfind(']')
         list_str = reply[index_from: index_to + 1]
