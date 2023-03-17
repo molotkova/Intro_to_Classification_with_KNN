@@ -4,3 +4,7 @@ files:
   visible: false
 - name: load_file.py
   visible: true
+- name: test/__init__.py
+  visible: true
+- name: test/tests.py
+  visible: true
