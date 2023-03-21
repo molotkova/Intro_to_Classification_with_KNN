@@ -14,6 +14,9 @@ if __name__ == '__main__':
         open('../Data/data_about_marathon_runners.txt', 'wb').write(r.content)
         sys.stderr.write("[INFO] Loaded.\n")
 
+    # write your code here
+
+    # Reference solution starts here
     runners: list[list[str and int]] = []
 
     with open('../Data/data_about_marathon_runners.txt') as file:
@@ -21,5 +24,5 @@ if __name__ == '__main__':
             runners.append(line.strip().split(','))
 
     print(runners)
-#    print("""[['Yes', '330.8', '35', '1.33', 'nothing'], ['Yes', '214', '45', '1.44', 'cycling 4h'], ['Yes', '338.4', '30', '1.37', 'nothing'], ['Yes', '531.2', '25', '1.18', 'nothing'], ['Yes', '274.4', '28', '0.86', 'nothing'], ['No', '194', '32', '1.82', 'cycling 3h'], ['No', '110.8', '41', '1.66', 'cycling 3h'], ['No', '161.2', '29', '1.9', 'cycling 5h'], ['No', '200', '55', '1.96', 'nothing'], ['No', '82.8', '38', '1.78', 'cycling 5h']]
+#   print("""[['Yes', '330.8', '35', '1.33', 'nothing'], ['Yes', '214', '45', '1.44', 'cycling 4h'], ['Yes', '338.4', '30', '1.37', 'nothing'], ['Yes', '531.2', '25', '1.18', 'nothing'], ['Yes', '274.4', '28', '0.86', 'nothing'], ['No', '194', '32', '1.82', 'cycling 3h'], ['No', '110.8', '41', '1.66', 'cycling 3h'], ['No', '161.2', '29', '1.9', 'cycling 5h'], ['No', '200', '55', '1.96', 'nothing'], ['No', '82.8', '38', '1.78', 'cycling 5h']]
 # """)
